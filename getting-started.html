@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="overview.html">Overview</a></li><li class="chapter-item expanded "><a href="getting-started.html" class="active"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="cluster-controls.html"><strong aria-hidden="true">2.</strong> Cluster Controls</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cluster-formation.html"><strong aria-hidden="true">2.1.</strong> Cluster Formation</a></li><li class="chapter-item expanded "><a href="dynamic-membership.html"><strong aria-hidden="true">2.2.</strong> Dynamic Membership</a></li></ol></li><li class="chapter-item expanded "><a href="metrics.html"><strong aria-hidden="true">3.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="internal.html"><strong aria-hidden="true">4.</strong> Internal</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="architecture.html"><strong aria-hidden="true">4.1.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="threading.html"><strong aria-hidden="true">4.2.</strong> Threads</a></li><li class="chapter-item expanded "><a href="replication.html"><strong aria-hidden="true">4.3.</strong> Replication</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="delete_log.html"><strong aria-hidden="true">4.3.1.</strong> Delete-conflicting-logs</a></li></ol></li><li class="chapter-item expanded "><a href="effective-membership.html"><strong aria-hidden="true">4.4.</strong> Effective Membership</a></li></ol></li><li class="chapter-item expanded "><a href="upgrade-tips.html"><strong aria-hidden="true">5.</strong> Upgrade Tips</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="overview.html">Overview</a></li><li class="chapter-item expanded "><a href="getting-started.html" class="active"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">2.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="cluster-controls.html"><strong aria-hidden="true">3.</strong> Cluster Controls</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cluster-formation.html"><strong aria-hidden="true">3.1.</strong> Cluster Formation</a></li><li class="chapter-item expanded "><a href="dynamic-membership.html"><strong aria-hidden="true">3.2.</strong> Dynamic Membership</a></li><li class="chapter-item expanded "><a href="node-lifecycle.html"><strong aria-hidden="true">3.3.</strong> Node lifecycle</a></li></ol></li><li class="chapter-item expanded "><a href="metrics.html"><strong aria-hidden="true">4.</strong> Metrics</a></li><li class="chapter-item expanded "><a href="internal.html"><strong aria-hidden="true">5.</strong> Internal</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="architecture.html"><strong aria-hidden="true">5.1.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="threading.html"><strong aria-hidden="true">5.2.</strong> Threads</a></li><li class="chapter-item expanded "><a href="log-data-layout.html"><strong aria-hidden="true">5.3.</strong> Log data layout</a></li><li class="chapter-item expanded "><a href="heartbeat.html"><strong aria-hidden="true">5.4.</strong> Heartbeat</a></li><li class="chapter-item expanded "><a href="vote.html"><strong aria-hidden="true">5.5.</strong> Vote</a></li><li class="chapter-item expanded "><a href="replication.html"><strong aria-hidden="true">5.6.</strong> Replication</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="delete_log.html"><strong aria-hidden="true">5.6.1.</strong> Delete-conflicting-logs</a></li></ol></li><li class="chapter-item expanded "><a href="extended-membership.html"><strong aria-hidden="true">5.7.</strong> Extended-membership</a></li><li class="chapter-item expanded "><a href="effective-membership.html"><strong aria-hidden="true">5.8.</strong> Effective Membership</a></li></ol></li><li class="chapter-item expanded "><a href="upgrade-tips.html"><strong aria-hidden="true">6.</strong> Upgrade Tips</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="upgrade-v06-v07.html"><strong aria-hidden="true">6.1.</strong> Upgrade from 0.6 to 0.7</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -139,6 +139,8 @@
 <p>In this chapter we are going to build a key-value store cluster with <a href="https://github.com/datafuselabs/openraft">openraft</a>.</p>
 <p><a href="https://github.com/datafuselabs/openraft/tree/main/examples/raft-kv-memstore">examples/raft-kv-memstore</a>
 is the complete example application including the server, the client and a demo cluster.</p>
+<p><a href="https://github.com/datafuselabs/openraft/tree/main/examples/raft-kv-rocksdb">examples/raft-kv-rocksdb</a>
+is the complete example application including the server, the client and a demo cluster using rocksdb for persistant storage.</p>
 <hr />
 <p>Raft is a distributed consensus protocol designed to manage a replicated log containing state machine commands from clients.</p>
 <p>
@@ -247,6 +249,7 @@ pub fn test_mem_store() -&gt; anyhow::Result&lt;()&gt; {
 }
 <span class="boring">}
 </span></code></pre></pre>
+<p>There is a second example in <a href="https://github.com/datafuselabs/openraft/blob/main/rocksstore/src/test.rs">Test suite for RaftStorage</a> that showcases building a rocksdb backed store.</p>
 <h3 id="race-condition-about-raftstorage"><a class="header" href="#race-condition-about-raftstorage">Race condition about RaftStorage</a></h3>
 <p>In our design, there is at most one thread at a time writing data to it.
 But there may be several threads reading from it concurrently,
@@ -414,7 +417,7 @@ Use ExampleClient to set up a cluster, write data, and then read it.</p>
                             <a rel="prev" href="overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="cluster-controls.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="faq.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -426,7 +429,7 @@ Use ExampleClient to set up a cluster, write data, and then read it.</p>
                     <a rel="prev" href="overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="cluster-controls.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="faq.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
